@@ -24,6 +24,16 @@ while True:
     
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        
+        face_emo = frame[y:y + h, x:x + w]
+            
+        results = DeepFace.analyze(face_emo, actions=['emotion'], enforce_detection=False)
+            
+        dominant_emotion = results[0]['dominant_emotion']
+            
+        cv2.putText(frame, dominant_emotion, (x, y - 10), 
+
+        cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
     
     cv2.imshow("cv2 face detection, press q to quit or exit", frame)
     
